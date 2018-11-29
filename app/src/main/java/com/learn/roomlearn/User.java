@@ -4,8 +4,14 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "users ")
+@Entity(tableName = "users")
 public class User {
+
+    public User(int id, String name, String email){
+        this.id = id;
+        this.email = email;
+        this.name = name;
+    }
 
     @PrimaryKey
     private int id;
@@ -38,5 +44,10 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Id :"+id+"\n Name :"+name+"\n Mail :"+email;
     }
 }

@@ -7,16 +7,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class AddUserFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private String userName,email;
+    private Integer id;
+    private Button saveButton;
+    private EditText nameEdt,mailEdt,idEdt;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public AddUserFragment() {
         // Required empty public constructor
@@ -24,26 +27,38 @@ public class AddUserFragment extends Fragment {
 
     public static AddUserFragment newInstance(String param1, String param2) {
         AddUserFragment fragment = new AddUserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        final View view = inflater.inflate(R.layout.fragment_add_user, container, false);
+        saveButton = view.findViewById(R.id.saveButtom);
+        nameEdt = view.findViewById(R.id.nameEditText);
+        mailEdt = view.findViewById(R.id.emailEditText);
+        idEdt = view.findViewById(R.id.idEditText);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userName = nameEdt.getText().toString();
+                email = mailEdt.getText().toString();
+                id = Integer.valueOf(idEdt.getText().toString());
+                User user = new User(id,userName,email);
+                MainActivity.appDatabase.getUserDao().addUser(user);
+                Toast.makeText(getContext(),"Succesfully added user",Toast.LENGTH_LONG).show();
+                idEdt.setText("");
+                mailEdt.setText("");
+                nameEdt.setText("");
+            }
+        });
+
         return inflater.inflate(R.layout.fragment_add_user, container, false);
     }
 
@@ -53,13 +68,4 @@ public class AddUserFragment extends Fragment {
         super.onAttach(context);
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
