@@ -47,19 +47,24 @@ public class AddUserFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userName = nameEdt.getText().toString();
-                email = mailEdt.getText().toString();
-                id = Integer.valueOf(idEdt.getText().toString());
-                User user = new User(id,userName,email);
-                MainActivity.appDatabase.getUserDao().addUser(user);
-                Toast.makeText(getContext(),"Succesfully added user",Toast.LENGTH_LONG).show();
-                idEdt.setText("");
-                mailEdt.setText("");
-                nameEdt.setText("");
+                try {
+                    userName = nameEdt.getText().toString();
+                    email = mailEdt.getText().toString();
+                    id = Integer.valueOf(idEdt.getText().toString());
+                    User user = new User(id, userName, email);
+                    MainActivity.appDatabase.getUserDao().addUser(user);
+                    Toast.makeText(getContext(), "Succesfully added user", Toast.LENGTH_LONG).show();
+                    idEdt.setText("");
+                    mailEdt.setText("");
+                    nameEdt.setText("");
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
-        return inflater.inflate(R.layout.fragment_add_user, container, false);
+        return view;
     }
 
 

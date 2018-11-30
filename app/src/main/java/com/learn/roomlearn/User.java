@@ -48,6 +48,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "Id :"+id+"\n Name :"+name+"\n Mail :"+email;
+        return "\nId :"+id+"\n Name :"+name+"\n Mail :"+email;
     }
 }

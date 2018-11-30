@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private Button addButton;
+    private Button addButton,readButton,editButton,deleteButton;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -36,6 +36,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_home, container, false);
         addButton = view.findViewById(R.id.addButton);
+        readButton = view.findViewById(R.id.viewButton);
+        view.findViewById(R.id.deleteButton).setOnClickListener(this);
+        view.findViewById(R.id.updateButton).setOnClickListener(this);
+        readButton.setOnClickListener(this);
         addButton.setOnClickListener(this);
         return view;
     }
@@ -64,7 +68,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 MainActivity.fragmentManager.beginTransaction()
                         .replace(R.id.fragmentContainer,new ViewDataFragment())
                         .addToBackStack("").commit();
-            break;
+                break;
+            case R.id.deleteButton:
+                MainActivity.fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer,new DeleteFragment())
+                        .addToBackStack("").commit();
+                break;
+            case R.id.updateButton:
+                MainActivity.fragmentManager.beginTransaction()
+                        .replace(R.id.fragmentContainer,new UpdateFragment())
+                        .addToBackStack("").commit();
+                break;
         }
     }
 }

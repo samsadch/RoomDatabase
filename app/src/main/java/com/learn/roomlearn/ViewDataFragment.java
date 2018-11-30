@@ -32,7 +32,7 @@ public class ViewDataFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_view_data, container, false);
         userDataTxv =  (TextView) view.findViewById(R.id.userData);
         List<User> list = MainActivity.appDatabase.getUserDao().getAllUsers();
-        String  info  = null;
+        String  info  = " ";
         for (User user  : list){
             info = info+"\n\n"+user.toString();
         }
